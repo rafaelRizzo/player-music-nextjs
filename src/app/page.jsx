@@ -19,18 +19,22 @@ export default function Home() {
 
     useEffect(() => {
         const audio = document.querySelector('audio');
-        setAudioElement(audio); // Atribuo o audio atual ao state
-        if (isNaN(duration) || !audio) {
-            setDuration(0)
-        } else {
-            setDuration(audio.duration); // Seto a duração total no state
-        }
+        setAudioElement(audio);
 
-        const handlePlayPause = () => { // Toogle para iniciar ou para a musica
+        const handlePlayPause = () => {
             setIsPlaying(!isPlaying);
+
+            // Configura as variáveis na primeira reprodução
+            if (!audioElement) {
+                setAudioElement(audio);
+            }
+
+            // Configura a duração se necessário (quando o áudio é iniciado)
+            if (!duration) {
+                setDuration(audio.duration);
+            }
         };
 
-        // Função para monitorar o estado atual da musica
         const handleTimeUpdate = () => {
             setCurrentTime(audio.currentTime);
 
@@ -42,22 +46,17 @@ export default function Home() {
         };
 
         if (audio) {
-            // Adiciona os event listeners se o elemento de áudio existir
             audio.addEventListener('play', handlePlayPause);
             audio.addEventListener('pause', handlePlayPause);
             audio.addEventListener('timeupdate', handleTimeUpdate);
 
-            // Remove os event listeners ao desmontar o componente
             return () => {
                 audio.removeEventListener('play', handlePlayPause);
                 audio.removeEventListener('pause', handlePlayPause);
                 audio.removeEventListener('timeupdate', handleTimeUpdate);
             };
         }
-
-
-
-    }, [isPlaying]);
+    }, [isPlaying, audioElement, duration]);
 
     // Função para controlar a reprodução/pausa
     const togglePlayPause = () => {
