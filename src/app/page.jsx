@@ -72,7 +72,7 @@ export default function Home() {
     return (
         <>
             {/* Container Card app */}
-            <div id="app-music" className="flex items-center justify-center relative min-h-screen">
+            <div id="app-music" className="flex items-center justify-center relative min-h-screen p-5">
 
                 {/* Card app */}
                 <main className="card border border-zinc-300/50 dark:border-zinc-300/10 min-w-96 max-w-96 rounded-xl px-8 py-10 overflow-hidden relative">
