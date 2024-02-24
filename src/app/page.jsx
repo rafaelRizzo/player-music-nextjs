@@ -22,8 +22,9 @@ export default function Home() {
         setAudioElement(audio); // Atribuo o audio atual ao state
         if (isNaN(duration) || !audio) {
             setDuration(0)
+        } else {
+            setDuration(audio.duration); // Seto a duração total no state
         }
-        setDuration(audio.duration); // Seto a duração total no state
 
         const handlePlayPause = () => { // Toogle para iniciar ou para a musica
             setIsPlaying(!isPlaying);
