@@ -20,6 +20,9 @@ export default function Home() {
     useEffect(() => {
         const audio = document.querySelector('audio');
         setAudioElement(audio); // Atribuo o audio atual ao state
+        if (isNaN(duration)) {
+            setDuration(0)
+        }
         setDuration(audio.duration); // Seto a duração total no state
 
         const handlePlayPause = () => { // Toogle para iniciar ou para a musica
@@ -50,6 +53,9 @@ export default function Home() {
                 audio.removeEventListener('timeupdate', handleTimeUpdate);
             };
         }
+
+
+
     }, [isPlaying]);
 
     // Função para controlar a reprodução/pausa
@@ -87,6 +93,7 @@ export default function Home() {
                         <Image
                             className={`${isPlaying == true ? 'rotateVinil' : ''} rounded-full object-cover max-w-40 max-h-40 min-w-40 min-h-40`}
                             src="/thumb-album/attack-on-titan.gif"
+                            loading='eager'
                             width={40}
                             height={40}
                             unoptimized={true}
