@@ -20,7 +20,7 @@ export default function Home() {
     useEffect(() => {
         const audio = document.querySelector('audio');
         setAudioElement(audio); // Atribuo o audio atual ao state
-        if (isNaN(duration)) {
+        if (isNaN(duration) || !audio) {
             setDuration(0)
         }
         setDuration(audio.duration); // Seto a duração total no state
