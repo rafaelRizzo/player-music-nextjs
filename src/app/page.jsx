@@ -118,7 +118,7 @@ export default function Home() {
                             <div className="card-toogle-play">
 
                                 {/*  */}
-                                <audio controls autoPlay hidden >
+                                <audio controls autoPlay className="absolute bottom-0 -z-10 opacity-0" >
                                     <source src="/musics/attack-on-titan/ataek-on-titan.mp3" type="audio/mp3" />
                                     O seu navegador não suporta o elemento <code>audio</code>.
                                 </audio>
