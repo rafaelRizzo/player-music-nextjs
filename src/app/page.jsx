@@ -10,6 +10,19 @@ import { FaPlay } from "react-icons/fa6";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import { FaPause } from "react-icons/fa6";
 
+// 
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import { IoVolumeMedium } from "react-icons/io5";
+
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+
+
+// 
+
 export default function Home() {
     const [audioElement, setAudioElement] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -19,6 +32,7 @@ export default function Home() {
 
     useEffect(() => {
         const audio = document.querySelector('audio');
+        audio.volume = 50 / 100
         setAudioElement(audio);
 
         const handlePlayPause = () => {
@@ -69,6 +83,12 @@ export default function Home() {
         }
     };
 
+    const handlerVolume = (e) => {
+        const newVolume = e.target.value / 100; // Normaliza o valor para estar entre 0 e 1
+        let audio = document.querySelector('audio');
+        audio.volume = newVolume
+    }
+
     function formatTime(time) {
         const minutes = Math.floor(time / 60);
         const seconds = Math.floor(time % 60);
@@ -82,6 +102,33 @@ export default function Home() {
 
                 {/* Card app */}
                 <main className="card border border-zinc-300/50 dark:border-zinc-300/10 min-w-96 max-w-96 rounded-xl px-8 py-10 overflow-hidden relative mx-5">
+
+                    {/* Menu card music */}
+                    <div className="card-menu absolute top-5 right-4">
+
+                        <Popover>
+                            <PopoverTrigger>
+                                <div className="p-1 rounded-full transition hover:dark:bg-zinc-500/15 cursor-pointer">
+                                    <BiDotsVerticalRounded className="w-6 h-6" />
+                                </div>
+                            </PopoverTrigger>
+
+                            <PopoverContent className="min-w-36 max-w-36 dark:border-zinc-300/10">
+                                <div className="p-0 flex items-center justify-center gap-2">
+                                    <IoVolumeMedium className="w-6 h-6" />
+                                    <input
+                                        id="volume-track"
+                                        className="text-zinc-200"
+                                        type="range"
+                                        min="0" max="100"
+                                        onChange={(e) => { handlerVolume(e) }}
+                                        step="1" />
+                                </div>
+                            </PopoverContent>
+                        </Popover>
+
+                    </div>
+                    {/*  */}
 
                     {/* Card title */}
                     <div className="card-title-album my-2">
