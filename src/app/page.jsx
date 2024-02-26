@@ -20,7 +20,8 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-
+import { IoInfiniteSharp } from "react-icons/io5";
+import { useToast } from "@/components/ui/use-toast"
 // 
 
 export default function Home() {
@@ -29,6 +30,9 @@ export default function Home() {
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
     const [progressStyle, setProgressStyle] = useState({ width: '0%' });
+    const [volumeTrack, setVolumeTrack] = useState(0.5);
+    const [loopTrack, setLoopTrack] = useState(false);
+    const { toast } = useToast()
 
     useEffect(() => {
         const audio = document.querySelector('audio');
@@ -85,8 +89,20 @@ export default function Home() {
 
     const handlerVolume = (e) => {
         const newVolume = e.target.value / 100; // Normaliza o valor para estar entre 0 e 1
+        setVolumeTrack(newVolume)
         let audio = document.querySelector('audio');
-        audio.volume = newVolume
+        audio.volume = volumeTrack
+    }
+
+    const handlerLoopTrak = () => {
+        let audio = document.querySelector('audio');
+        setLoopTrack(!loopTrack)
+        audio.loop = loopTrack
+
+        toast({
+            title: `${loopTrack ? "Repetição Ativada" : "Repetição Desativada"} `,
+            duration: 2000
+        })
     }
 
     function formatTime(time) {
@@ -119,10 +135,15 @@ export default function Home() {
                                     <input
                                         id="volume-track"
                                         className="text-zinc-200"
+                                        defaultValue={volumeTrack * 100}
                                         type="range"
                                         min="0" max="100"
                                         onChange={(e) => { handlerVolume(e) }}
                                         step="1" />
+                                </div>
+                                <div className="flex items-center gap-2 cursor-pointer" onClick={() => { handlerLoopTrak() }}>
+                                    <IoInfiniteSharp />
+                                    Repetir
                                 </div>
                             </PopoverContent>
                         </Popover>
@@ -165,7 +186,7 @@ export default function Home() {
                             <div className="card-toogle-play">
 
                                 {/*  */}
-                                <audio controls autoPlay className="absolute bottom-0 -z-10 opacity-0" >
+                                <audio controls autoPlay className="absolute bottom-0 -z-10 opacity-0">
                                     <source src="/musics/attack-on-titan/ataek-on-titan.mp3" type="audio/mp3" />
                                     O seu navegador não suporta o elemento <code>audio</code>.
                                 </audio>
