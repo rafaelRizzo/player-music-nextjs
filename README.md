@@ -1,4 +1,4 @@
-#Projeto player de música NEXTJS
+# Projeto player de música NEXTJS
 ***
 <img src="https://github.com/rafaelRizzo/player-music-nextjs/blob/main/review-projeto.png" alt="Overview do projeto">
 
