@@ -1,8 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
 
-import Image from "next/image";
-
 // Icones
 import { FaAngleDoubleLeft } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa6";
@@ -13,12 +11,17 @@ import { CardTitleAlbum } from "./CardTitleAlbum";
 import { CardVinilTrack } from "./CardVinilTrack";
 import { CardTrackDetails } from "./CardTrackDetails";
 
+import { useToast } from "@/components/ui/use-toast"
+
+
 export function CardMain() {
     const [audioElement, setAudioElement] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
     const [progressStyle, setProgressStyle] = useState({ width: '0%' });
+
+    const { toast } = useToast()
 
     useEffect(() => {
         const audio = document.querySelector('audio');
@@ -112,7 +115,12 @@ export function CardMain() {
             <div className="card-container-controllers my-4">
 
                 <div className="flex items-center justify-between">
-                    <div className="card-return">
+                    <div className="card-return"
+                        onClick={() => {
+                            toast({
+                                title: "Em breve mais músicas :)",
+                            })
+                        }}>
                         <FaAngleDoubleLeft className="text-4xl text-zinc-800 hover:text-zinc-800/90 dark:text-zinc-200 dark:hover:text-zinc-300 cursor-pointer" />
                     </div>
                     <div className="card-toogle-play">
@@ -129,7 +137,13 @@ export function CardMain() {
                             {isPlaying ? <FaPause /> : <FaPlay />}
                         </div>
                     </div>
-                    <div className="card-skip">
+                    <div className="card-skip"
+                        onClick={() => {
+                            toast({
+                                title: "Em breve mais músicas :)",
+                            })
+                        }}
+                    >
                         <FaAngleDoubleRight className="text-4xl text-zinc-800 hover:text-zinc-800/90 dark:text-zinc-200 dark:hover:text-zinc-300 cursor-pointer" />
                     </div>
                 </div>
