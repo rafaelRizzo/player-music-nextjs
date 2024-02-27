@@ -1,4 +1,5 @@
 #Projeto player de música NEXTJS
+***
 <img src="https://github.com/rafaelRizzo/player-music-nextjs/blob/main/review-projeto.png" alt="Overview do projeto">
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
